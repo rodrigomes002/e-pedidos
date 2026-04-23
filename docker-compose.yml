@@ -1,9 +1,18 @@
-version: '3.8'
 services:
   zookeeper:
     image: zookeeper:3.9
     environment:
       ZOO_CFG_SERVER_1: zookeeper:2888:3888
+    cpus: '0.5'
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
     networks:
       - epedidos-net
 
@@ -19,6 +28,16 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    cpus: '1.0'
+    mem_limit: 1G
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
     networks:
       - epedidos-net
 
@@ -32,6 +51,16 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    cpus: '1.0'
+    mem_limit: 1G
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
     networks:
       - epedidos-net
     healthcheck:
@@ -49,6 +78,16 @@ services:
     environment:
       Kafka__BootstrapServers: 'kafka:9092'
       Kafka__Topic: 'orders'
+    cpus: '0.5'
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
     networks:
       - epedidos-net
 
@@ -67,6 +106,16 @@ services:
       ConnectionStrings__Postgres: 'Host=postgres;Port=5432;Database=postgres;Username=postgres;Password=postgres'
       Kafka__BootstrapServers: 'kafka:9092'
       Kafka__Topic: 'orders'
+    cpus: '0.5'
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
     networks:
       - epedidos-net
 
@@ -81,6 +130,16 @@ services:
     depends_on:
       - kafka
       - zookeeper
+    cpus: '0.25'
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.15'
+          memory: 128M
     networks:
       - epedidos-net
 

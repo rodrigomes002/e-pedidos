@@ -25,8 +25,8 @@ public sealed class OrderProducerWorker : BackgroundService
     {
         _logger.LogInformation("Producer worker starting...");
 
-        // Gerar pedidos de exemplo a cada 5 segundos
-        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
+        // Gerar pedidos de exemplo a cada 1 milissegundo
+        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1));
 
         try
         {

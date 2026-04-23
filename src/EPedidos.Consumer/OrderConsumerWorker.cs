@@ -47,7 +47,7 @@ public sealed class OrderConsumerWorker : BackgroundService
                 }
                 catch (ConsumeException ex)
                 {
-                    if (ex.Error.Code == ErrorCode.UnknownTopic || ex.Error.Reason.Contains("Unknown topic"))
+                    if (ex.Error.Code == ErrorCode.UnknownTopicOrPart || ex.Error.Reason.Contains("Unknown topic"))
                     {
                         _logger.LogWarning("Topic not available, waiting... Error: {Error}", ex.Error.Reason);
                         await Task.Delay(5000, stoppingToken);
